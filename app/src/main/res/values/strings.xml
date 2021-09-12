@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">DatastorePlayground</string>
+    <string name="toggle_theme">Toggle Theme</string>
+</resources>
