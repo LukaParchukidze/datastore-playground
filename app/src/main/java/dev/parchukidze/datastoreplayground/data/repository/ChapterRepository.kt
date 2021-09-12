@@ -1,11 +1,13 @@
 package dev.parchukidze.datastoreplayground.data.repository
 
+import dev.parchukidze.datastoreplayground.data.prefsstore.PrefsStore
 import dev.parchukidze.datastoreplayground.data.sharedprefs.SharedPrefs
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class ChapterRepository @Inject constructor(private val sharedPrefs: SharedPrefs) {
+class ChapterRepository @Inject constructor(private val prefsStore: PrefsStore) {
 
-    fun isDarkThemeEnabled(): Boolean = sharedPrefs.isDarkThemeEnabled()
+    fun isDarkThemeEnabled(): Flow<Boolean> = prefsStore.isDarkThemeEnabled()
 
-    fun toggleDarkTheme(enabled: Boolean) = sharedPrefs.toggleDarkTheme(enabled)
+    suspend fun toggleDarkTheme() = prefsStore.toggleDarkTheme()
 }
