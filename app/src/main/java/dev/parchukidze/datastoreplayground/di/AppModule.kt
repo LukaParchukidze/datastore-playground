@@ -9,7 +9,9 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import dev.parchukidze.datastoreplayground.Chapter
 import dev.parchukidze.datastoreplayground.data.prefsstore.prefsStore
+import dev.parchukidze.datastoreplayground.data.protostore.protoStore
 import dev.parchukidze.datastoreplayground.util.Constants.PREFS_NAME
 import javax.inject.Singleton
 
@@ -26,4 +28,9 @@ object AppModule {
     @Provides
     fun providePreferencesDatastore(@ApplicationContext context: Context): DataStore<Preferences> =
         context.prefsStore
+
+    @Singleton
+    @Provides
+    fun provideProtoDatastore(@ApplicationContext context: Context): DataStore<Chapter> =
+        context.protoStore
 }

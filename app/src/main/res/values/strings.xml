@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">DatastorePlayground</string>
     <string name="toggle_theme">Toggle Theme</string>
+    <string name="enter_chapter_name">Enter Chapter Name</string>
+    <string name="enter_developers_number">Enter Developers Number</string>
+    <string name="enter_sub_chapters_number">Enter Sub-Chapters Number</string>
+    <string name="update_chapter">Update Chapter</string>
+    <string name="update_developers">Update Developers</string>
 </resources>

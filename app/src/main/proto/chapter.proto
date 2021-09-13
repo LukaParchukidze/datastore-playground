@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+option java_package = "dev.parchukidze.datastoreplayground";
+option java_multiple_files = true;
+
+message Chapter{
+  string name = 1;
+  int32 developers = 2;
+  int32 sub_chapters = 3;
+}

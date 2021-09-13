@@ -1,5 +1,6 @@
 package dev.parchukidze.datastoreplayground.presentation
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +8,8 @@ import androidx.appcompat.app.AppCompatDelegate
 import dagger.hilt.android.AndroidEntryPoint
 import dev.parchukidze.datastoreplayground.R
 import dev.parchukidze.datastoreplayground.databinding.ActivityChapterBinding
+import dev.parchukidze.datastoreplayground.util.clear
+import dev.parchukidze.datastoreplayground.util.hideKeyboard
 
 @AndroidEntryPoint
 class ChapterActivity : AppCompatActivity() {
@@ -26,8 +29,9 @@ class ChapterActivity : AppCompatActivity() {
         setListeners()
     }
 
-    private fun subscribeObservers() {
-        viewModel.darkThemeState.observe(this) { isNightModeEnabled ->
+    @SuppressLint("SetTextI18n")
+    private fun subscribeObservers() = with(binding) {
+        viewModel.darkThemeState.observe(this@ChapterActivity) { isNightModeEnabled ->
             val defaultMode = if (isNightModeEnabled) {
                 AppCompatDelegate.MODE_NIGHT_YES
             } else {
@@ -36,11 +40,41 @@ class ChapterActivity : AppCompatActivity() {
 
             AppCompatDelegate.setDefaultNightMode(defaultMode)
         }
+
+        viewModel.chapterState.observe(this@ChapterActivity) { chapter ->
+            tvChapterName.text = "Chapter Name: ${chapter.name}"
+            tvDevelopers.text = "Developers: ${chapter.developers}"
+            tvSubChapters.text = "Sub-Chapters: ${chapter.subChapters}"
+        }
     }
 
     private fun setListeners() = with(binding) {
         btnToggle.setOnClickListener {
             viewModel.toggleNightMode()
+        }
+
+        btnUpdateChapter.setOnClickListener {
+            hideKeyboard()
+
+            viewModel.updateChapter(
+                name = etChapterName.text.toString(),
+                developers = etDevelopers.text.toString().toInt(),
+                subChapters = etSubChapters.text.toString().toInt()
+            )
+
+            etChapterName.clear()
+            etDevelopers.clear()
+            etSubChapters.clear()
+        }
+
+        btnUpdateDevelopers.setOnClickListener {
+            hideKeyboard()
+
+            viewModel.updateDevelopers(
+                developers = etDevelopers.text.toString().toInt()
+            )
+
+            etDevelopers.clear()
         }
     }
 }
